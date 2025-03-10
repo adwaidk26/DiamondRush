@@ -2,25 +2,28 @@
 #include <vector>
 #include <raylib.h>
 #include <Utils.h>
+#include <Object.h>
 
 
-class GameMap {
+class gameMap {
 public:
-    static GameMap& getInstance() {
-        static GameMap instance;
+    static gameMap& getInstance() {
+        static gameMap instance;
         return instance;
     }
 
-    GameMap(GameMap const&) = delete;
-    void operator=(GameMap const&) = delete;
+    gameMap(gameMap const&) = delete;
+    void operator=(gameMap const&) = delete;
 
     void drawMap();
     void update();
     void addRow();
     void addColumn();
+    void setTile(int x, int y, gameObject* object);
+    gameObject* getTile(int x, int y);
 
 private:
-    GameMap();
-    std::vector<std::vector<int>> gameMap;
+    gameMap();
+    std::vector<std::vector<gameObject*>> gameGrid;
 
 };

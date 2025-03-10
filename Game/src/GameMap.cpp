@@ -1,35 +1,29 @@
 #include <GameMap.h>
 
-GameMap::GameMap()
+gameMap::gameMap()
 {
-    gameMap = {
-        {1,1,1,1,1,1,1,1,1,1},
-        {1,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,1},
-        {1,1,1,1,1,1,1,1,1,1}
-    };
+
 }
-void GameMap::drawMap()
+void gameMap::drawMap()
 {
-    for(int i = 0; i < gameMap.size(); i++)
+    for(int i = 0; i < gameGrid.size(); i++)
     {
-        for(int j = 0; j < gameMap[i].size(); j++)
+        for(int j = 0; j < gameGrid[i].size(); j++)
         {
-            if(gameMap[i][j] == 1)
+            if(gameGrid[i][j] != nullptr)
             {
-                DrawRectangle(j*TILE_SIZE, i*TILE_SIZE, TILE_SIZE, TILE_SIZE, BLACK);
+                gameGrid[i][j]->draw();
             }
         }
     }
 }
 
-void GameMap::update()
+void gameMap::update()
 {
+    
+}
 
+void gameMap::setTile(int x, int y, gameObject *object)
+{
+    gameGrid[y][x] = object;
 }

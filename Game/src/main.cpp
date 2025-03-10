@@ -6,7 +6,7 @@ main()
 {
     InitWindow(SCREEN_HEIGHT,SCREEN_WIDTH,"Diamond Rush");
     SetTargetFPS(60);
-    GameMap& gameMapData = GameMap::getInstance();
+    gameMap& gameMapData = gameMap::getInstance();
     while(!WindowShouldClose())
     {
         BeginDrawing();
