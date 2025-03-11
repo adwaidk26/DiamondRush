@@ -17,3 +17,21 @@ private:
     int yPrev;
 };
 
+
+class diamond : public gameObject
+{
+public:
+    diamond(int xPos, int yPos);
+    ~diamond() override;
+    void draw() override;
+    void updateOnMap() override;
+
+};
+
+class block : public gameObject
+{
+public:
+    block(int xPos, int yPos);
+    ~block() override;
+    void draw() override;
+};
