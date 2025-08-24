@@ -40,8 +40,15 @@ gameMap::gameMap()
     gameGrid[2][9] = new block(2,9);
     gameGrid[1][9] = new block(1,9);
     gameGrid[1][1] = new boulder(1,1);
-    gameGrid[1][8] = new diamond(1,8);
+    gameGrid[1][2] = new boulder(1,2);
+    gameGrid[4][2] = new boulder(4,2);
+    gameGrid[5][2] = new boulder(5,2);
+    gameGrid[6][2] = new boulder(6,2);
+    gameGrid[2][8] = new diamond(2,8);
+    gameGrid[3][8] = new diamond(3,8);
+    gameGrid[7][2] = new bush(7,2);
 }
+
 void gameMap::drawMap()
 {
     for(int i = 0; i < gameGrid.size(); i++)
@@ -77,5 +84,12 @@ void gameMap::update()
 
 void gameMap::setTile(int x, int y, gameObject *object)
 {
-    gameGrid[y][x] = object;
+    //TraceLog(LOG_INFO, "setTile: x: %d, y: %d", x, y);
+    gameGrid[x][y] = object;
+}
+
+gameObject* gameMap::getTile(int x, int y)
+{
+    //TraceLog(LOG_INFO, "getTile: x: %d, y: %d", x, y);
+    return gameGrid[x][y];
 }

@@ -22,7 +22,9 @@ public:
     void addColumn();
     void setTile(int x, int y, gameObject* object);
     gameObject* getTile(int x, int y);
-
+    bool moveObject(int x, int y, moveDirection direction);
+    bool checkCollision(int x, int y, moveDirection direction);
+    
 private:
     gameMap();
     std::vector<std::vector<gameObject*>> gameGrid;

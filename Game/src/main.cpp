@@ -2,18 +2,22 @@
 #include <GameMap.h>
 #include <Utils.h>
 #include <Game.h>
+#include <dbg.h>
 
 main()
 {
-    InitWindow(SCREEN_HEIGHT,SCREEN_WIDTH,"Diamond Rush");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Diamond Rush");
     SetTargetFPS(60);
-    Game diamondRush = Game();
+    Game diamondRush;
+
     while(!WindowShouldClose())
     {
+        diamondRush.updateGravity();
         BeginDrawing();
         ClearBackground(RAYWHITE);
         diamondRush.draw();
         DrawText("Diamond Rush", 10, 10, 20, DARKGRAY);
         EndDrawing();
+        diamondRush.handleInput();
     }
 }

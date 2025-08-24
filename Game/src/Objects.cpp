@@ -1,4 +1,5 @@
 #include<Objects.h>
+#include<GameMap.h>
 
 // ############################################################################################################
 // gameObject boulder
@@ -13,28 +14,25 @@ boulder::boulder(int xPos, int yPos)
     yPosition = yPos;
     xPrev = xPosition;
     yPrev = yPosition;
+    gravityApplicable = 1;
 }
 
 boulder::~boulder()
 {
+    gameMap& gameMapData = gameMap::getInstance();
+    gameMapData.setTile(xPosition, yPosition, nullptr);
 }
 
 void boulder::draw()
 {
-    DrawCircle(xPosition * TILE_SIZE + CENTER_OFFSET, yPosition * TILE_SIZE +CENTER_OFFSET, RADIUS_SIZE, GRAY);
+    DrawCircle(yPosition * TILE_SIZE + CENTER_OFFSET, xPosition * TILE_SIZE + CENTER_OFFSET, RADIUS_SIZE, GRAY);
 }
 
 void boulder::updateOnMap()
 {
-    gameMap& gameMapData = gameMap::getInstance();
-    gameMapData.setTile(xPrev, yPrev, nullptr);
-    gameMapData.setTile(xPosition, yPosition, this);
+
 }
 
-void boulder::moveObject(int direction)
-{
-    // Custom moveObject implementation for boulder
-}
 
 
 // ############################################################################################################
@@ -47,23 +45,27 @@ diamond::diamond(int xPos, int yPos)
     isMovable = false;
     isCollectable = true;
     isSquare = false;
+    score = 10;
     xPosition = xPos;
     yPosition = yPos;
+    xPrev = xPosition;
+    yPrev = yPosition;
+    gravityApplicable = 1;
 }
 
 diamond::~diamond()
 {
+    gameMap& gameMapData = gameMap::getInstance();
+    gameMapData.setTile(xPosition, yPosition, nullptr);
 }
 
 void diamond::draw()
 {
-    DrawCircle(xPosition * TILE_SIZE + CENTER_OFFSET, yPosition * TILE_SIZE + CENTER_OFFSET, RADIUS_SIZE, PINK);
+    DrawCircle(yPosition * TILE_SIZE + CENTER_OFFSET, xPosition * TILE_SIZE + CENTER_OFFSET, RADIUS_SIZE, PINK);
 }
 
 void diamond::updateOnMap()
 {
-    gameMap& gameMapData = gameMap::getInstance();
-    gameMapData.setTile(xPosition, yPosition, this);
 }
 
 
@@ -79,6 +81,7 @@ block::block(int xPos, int yPos)
     isSquare = true;
     xPosition = xPos;
     yPosition = yPos;
+    gravityApplicable = 0;
 }
 
 block::~block()
@@ -87,6 +90,30 @@ block::~block()
 
 void block::draw()
 {
-    DrawRectangle(xPosition * TILE_SIZE, yPosition * TILE_SIZE, TILE_SIZE, TILE_SIZE, BROWN);
+    DrawRectangle(yPosition * TILE_SIZE, xPosition * TILE_SIZE, TILE_SIZE, TILE_SIZE, BROWN);
 }
 
+
+// ############################################################################################################
+// gameObject Bush
+// ############################################################################################################
+
+bush::bush(int xPos, int yPos)
+{
+    isBreakable = true;
+    isCollectable = true;
+    isMovable = false;
+    isSquare = true;
+    xPosition = xPos;
+    yPosition = yPos;
+    gravityApplicable = 0;
+}
+
+bush::~bush()
+{
+}
+
+void bush::draw()
+{
+    DrawRectangle(yPosition * TILE_SIZE, xPosition * TILE_SIZE, TILE_SIZE, TILE_SIZE, GREEN);
+}

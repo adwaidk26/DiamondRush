@@ -1,8 +1,48 @@
 #pragma once
+#include <utility>
 
-extern const int SCREEN_WIDTH;
-extern const int SCREEN_HEIGHT;
+constexpr int SCREEN_WIDTH = 1000;
+constexpr int SCREEN_HEIGHT = 1000;
 
-extern const int CENTER_OFFSET;
-extern const int TILE_SIZE;
-extern const int RADIUS_SIZE;
+constexpr int GRID_WIDTH = 10;
+constexpr int GRID_HEIGHT = 10;
+
+constexpr int CENTER_OFFSET = 50;
+
+constexpr int TILE_SIZE = 100;
+constexpr int RADIUS_SIZE = 50;
+constexpr float GRAVITY_INTERVAL = 0.5f;
+
+
+enum moveDirection
+{
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+};
+
+enum gameState
+{
+    START,
+    PLAYING,
+    PAUSED,
+    GAMEOVER
+};
+
+enum gameObjectType
+{
+    PLAYER,
+    BOULDER,
+    DIAMOND,
+    BLOCK,
+    BUSH,
+    EXIT
+};
+
+constexpr std::pair<int, int> moveOffsets[] = {
+    { -1, 0 }, // UP
+    { 1, 0 },  // DOWN
+    { 0, -1 }, // LEFT
+    { 0, 1 }   // RIGHT
+};
