@@ -1,9 +1,6 @@
 #pragma once
 #include <utility>
 
-constexpr int SCREEN_WIDTH = 1000;
-constexpr int SCREEN_HEIGHT = 1000;
-
 constexpr int GRID_WIDTH = 10;
 constexpr int GRID_HEIGHT = 10;
 

@@ -14,9 +14,23 @@ set(BUILD_EXAMPLES OFF CACHE INTERNAL "")
 
 FetchContent_MakeAvailable(raylib)
 
-include_directories(${PROJECT_SOURCE_DIR}/Game/inc)
+set(IMAGE_FOLDER "Game/Data/Images")
 
-file(GLOB SOURCES ${PROJECT_SOURCE_DIR}/Game/src/*.cpp)
+add_definitions(-DIMAGE_FOLDER="${IMAGE_FOLDER}")
+
+include_directories(
+	${PROJECT_SOURCE_DIR}/Game/Main/Inc
+	${PROJECT_SOURCE_DIR}/Game/Game_Engine/inc
+	${PROJECT_SOURCE_DIR}/Game/Map_Builder/Inc
+	${PROJECT_SOURCE_DIR}/Game/Game_Menu/Inc
+	)
+
+file(GLOB SOURCES 
+	${PROJECT_SOURCE_DIR}/Game/Main/Src/*.cpp
+	${PROJECT_SOURCE_DIR}/Game/Game_Engine/src/*.cpp
+	${PROJECT_SOURCE_DIR}/Game/Map_Builder/Src/*.cpp
+	${PROJECT_SOURCE_DIR}/Game/Game_Menu/Src/*.cpp
+	)
 
 add_executable(Game ${SOURCES})
 

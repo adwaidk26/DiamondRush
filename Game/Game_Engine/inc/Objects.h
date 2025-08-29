@@ -1,6 +1,6 @@
 #pragma once
 #include<Object.h>
-#include<Utils.h>
+#include "GameEngineUtils.h"
 #include<GameMap.h>
 
 class boulder : public gameObject
