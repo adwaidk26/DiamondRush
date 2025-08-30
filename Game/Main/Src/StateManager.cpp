@@ -8,35 +8,32 @@ StateManager* StateManager::getStateInstance() {
     return &instance;
 }
 
-void StateManager::SwitchState(GameStateIDs gameStateID)
+void StateManager::ProcessStateChange()
 {
-    currentGameStateID = gameStateID;
-    delete currentGameState;
-    switch (currentGameStateID)
+    if(pendingStateID != STATE_NONE)
     {
+        currentGameStateID = pendingStateID;
+        delete *currentGameStateHandler;
+        switch (currentGameStateID)
+        {  
+        case MENU:
+            *currentGameStateHandler = new MainMenu();
+            break;
         
-    case MENU:
-        currentGameState = new MainMenu();
-        updateCurrentStateHandler();
-        break;
-    
-    case GAME:
-        currentGameState = new GameEngine();
-        updateCurrentStateHandler();
-        break;
+        case GAME:
+            *currentGameStateHandler = new GameEngine();
+            break;
 
-    // case MAP_EDITOR:
-    //     currentGameState = new MapEditor();
-    //     break;
-    // default:
-    //     break;
+        // case MAP_EDITOR:
+        //     *currentGameStateHandler = new MapEditor();
+        //     break;
+        // default:
+        //     break;
+        }
+        pendingStateID = STATE_NONE;
     }
 }
 
-GameState* StateManager::getCurrentState()
-{
-    return currentGameState;
-}
 
 GameStateIDs StateManager::getCurrentStateID()
 {
@@ -48,7 +45,7 @@ void StateManager::getCurrentStateHandler(GameState** currentStateHandlerPointer
     currentGameStateHandler = currentStateHandlerPointer;
 }
 
-void StateManager::updateCurrentStateHandler()
+void RequestStateChange(GameStateIDs newState) 
 {
-    *currentGameStateHandler = currentGameState;
+    pendingStateID = newState;
 }

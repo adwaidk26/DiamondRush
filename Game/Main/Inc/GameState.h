@@ -2,9 +2,10 @@
 
 enum GameStateIDs
 {
-    MENU = 0,
-    GAME = 1,
-    MAP_EDITOR = 2
+    STATE_NONE = 0,
+    MENU = 1,
+    GAME = 2,
+    MAP_EDITOR = 3
 };
 
 class GameState

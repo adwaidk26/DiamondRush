@@ -7,15 +7,13 @@ class StateManager
 {
     public:
     static StateManager* getStateInstance();
-    void SwitchState(GameStateIDs gameStateID);
-    GameState* getCurrentState();
+    void ProcessStateChange();
     GameStateIDs getCurrentStateID();
     void getCurrentStateHandler(GameState** currentStateHandlerPointer);
-    void updateCurrentStateHandler();
+    void RequestStateChange(GameStateIDs newState);
 
     private:
         GameStateIDs currentGameStateID = MENU;
-        GameState* currentGameState = new MainMenu();
         GameState** currentGameStateHandler;
-        
+        GameStateIDs pendingStateID = STATE_NONE;
 };
