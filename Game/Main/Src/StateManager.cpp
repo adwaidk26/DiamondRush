@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "MapEditor.h"
 #include "GameEngine.h"
+#include <iostream>
 
 StateManager* StateManager::getStateInstance() {
     static StateManager instance;
@@ -12,6 +13,7 @@ void StateManager::ProcessStateChange()
 {
     if(pendingStateID != STATE_NONE)
     {
+        
         currentGameStateID = pendingStateID;
         delete *currentGameStateHandler;
         switch (currentGameStateID)
@@ -45,7 +47,7 @@ void StateManager::getCurrentStateHandler(GameState** currentStateHandlerPointer
     currentGameStateHandler = currentStateHandlerPointer;
 }
 
-void RequestStateChange(GameStateIDs newState) 
+void StateManager::RequestStateChange(GameStateIDs newState) 
 {
     pendingStateID = newState;
 }

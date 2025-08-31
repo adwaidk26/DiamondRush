@@ -21,7 +21,7 @@ void MainMenu::HandleInput()
     if (IsKeyPressed(KEY_SPACE))
     {
         std::cout<<"Space Pressed"<<std::endl;
-        StateManager::getStateInstance()->SwitchState(GAME);
+        StateManager::getStateInstance()->RequestStateChange(GAME);
     }
 }
 
