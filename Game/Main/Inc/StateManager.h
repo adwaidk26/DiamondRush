@@ -1,19 +1,24 @@
 #pragma once
 #include "Utils.h"
-#include "Menu.h"
-#include "MainMenu.h" //for Main menu first
+#include "GameState.h"
 
 class StateManager
 {
     public:
+    ~StateManager();
     static StateManager* getStateInstance();
-    void ProcessStateChange();
-    GameStateIDs getCurrentStateID();
-    void getCurrentStateHandler(GameState** currentStateHandlerPointer);
+    
     void RequestStateChange(GameStateIDs newState);
+    void ProcessStateChange();
+
+    void HandleInput();
+    void Update();
+    void Draw();
+
+    GameStateIDs getCurrentStateID();
 
     private:
-        GameStateIDs currentGameStateID = MENU;
-        GameState** currentGameStateHandler;
+        GameState* currentState = nullptr;
+        GameStateIDs currentGameStateID = STATE_NONE;
         GameStateIDs pendingStateID = STATE_NONE;
 };

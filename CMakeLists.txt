@@ -23,6 +23,7 @@ include_directories(
 	${PROJECT_SOURCE_DIR}/Game/Game_Engine/inc
 	${PROJECT_SOURCE_DIR}/Game/Map_Builder/Inc
 	${PROJECT_SOURCE_DIR}/Game/Game_Menu/Inc
+	${PROJECT_SOURCE_DIR}/Game/Utils/Inc
 	)
 
 file(GLOB SOURCES 
@@ -30,6 +31,7 @@ file(GLOB SOURCES
 	${PROJECT_SOURCE_DIR}/Game/Game_Engine/src/*.cpp
 	${PROJECT_SOURCE_DIR}/Game/Map_Builder/Src/*.cpp
 	${PROJECT_SOURCE_DIR}/Game/Game_Menu/Src/*.cpp
+	${PROJECT_SOURCE_DIR}/Game/Utils/Src/*.cpp
 	)
 
 add_executable(Game ${SOURCES})

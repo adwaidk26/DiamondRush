@@ -1,6 +1,7 @@
 #pragma once
 #include <raylib.h>
 #include "GameEngineUtils.h"
+#include "Logger.h"
 
 class gameObject
 {

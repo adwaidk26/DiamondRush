@@ -1,7 +1,7 @@
 #include "StateManager.h"
-#include "GameState.h"
 #include "MapEditor.h"
 #include "GameEngine.h"
+#include "MainMenu.h"
 #include <iostream>
 
 StateManager* StateManager::getStateInstance() {
@@ -9,42 +9,59 @@ StateManager* StateManager::getStateInstance() {
     return &instance;
 }
 
+StateManager::~StateManager() {
+    delete currentState;
+}
+
 void StateManager::ProcessStateChange()
 {
     if(pendingStateID != STATE_NONE)
     {
+        delete currentState; // Delete the old state, if any.
         
-        currentGameStateID = pendingStateID;
-        delete *currentGameStateHandler;
-        switch (currentGameStateID)
+        switch (pendingStateID)
         {  
         case MENU:
-            *currentGameStateHandler = new MainMenu();
+            currentState = new MainMenu();
             break;
         
         case GAME:
-            *currentGameStateHandler = new GameEngine();
+            currentState = new GameEngine();
             break;
 
         // case MAP_EDITOR:
         //     *currentGameStateHandler = new MapEditor();
         //     break;
-        // default:
-        //     break;
+        default:
+            currentState = nullptr;
+            break;
         }
+        currentGameStateID = pendingStateID;
         pendingStateID = STATE_NONE;
     }
 }
 
+void StateManager::HandleInput() {
+    if (currentState) {
+        currentState->HandleInput();
+    }
+}
+
+void StateManager::Update() {
+    if (currentState) {
+        currentState->Update();
+    }
+}
+
+void StateManager::Draw() {
+    if (currentState) {
+        currentState->Draw();
+    }
+}
 
 GameStateIDs StateManager::getCurrentStateID()
 {
     return currentGameStateID;
-}
-
-void StateManager::getCurrentStateHandler(GameState** currentStateHandlerPointer)
-{
-    currentGameStateHandler = currentStateHandlerPointer;
 }
 
 void StateManager::RequestStateChange(GameStateIDs newState) 

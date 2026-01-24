@@ -40,7 +40,7 @@ bool playerObject::collectDiamond(moveDirection direction)
             gameMapData.setTile(xPosition + xOffset, yPosition + yOffset, this);
             gameMapData.setTile(xPosition, yPosition, nullptr);
             changePosition(xPosition + xOffset, yPosition + yOffset);
-            TraceLog(LOG_INFO, "Player collected diamond: %d", playerScore);
+            LOG_INFO("Player collected diamond: %d", playerScore);
             return true;
         }
     }
@@ -50,7 +50,7 @@ bool playerObject::collectDiamond(moveDirection direction)
 
 bool playerObject::handleInput(moveDirection direction)
 {
-    TraceLog(LOG_INFO, "Player handleInput: %d", direction);
+    LOG_INFO("Player handleInput: %d", direction);
     if (direction == moveDirection::UP)
     {
         if (collectDiamond(moveDirection::UP))

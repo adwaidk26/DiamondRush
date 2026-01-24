@@ -1,5 +1,6 @@
 #include<Object.h>
 #include<GameMap.h>
+#include <sstream>
 
 gameObject::gameObject()
 {
@@ -36,12 +37,12 @@ bool gameObject::moveObject(moveDirection direction, int power)
 {
     if(power <= 0)
     {
-        TraceLog(LOG_ERROR, "Power is less than or equal to 0");
+        LOG_INFO("Power is less than or equal to 0");
         return false;
     }
     if(isMovable)
     {
-        TraceLog(LOG_INFO, "Movable: Moving object in direction: %d", direction);
+        //LOG_INFO("Direction: %d", direction); fix required
         gameMap& gameMapData = gameMap::getInstance();
         switch (direction)
         {
@@ -50,92 +51,92 @@ bool gameObject::moveObject(moveDirection direction, int power)
                 {
                     if(gameMapData.getTile(xPosition - 1, yPosition)->moveObject(direction, power-1))
                     {
-                        TraceLog(LOG_INFO, "Moving object Success");
+                        LOG_INFO("Moving object Success");
                         changePosition(xPosition - 1, yPosition);
                         return true;
                     }
                     else
                     {
-                        TraceLog(LOG_ERROR, "Moving object Failed");
+                        LOG_ERROR("Moving object Failed");
                         return false;
                     }
                 }
                 else
                 {
-                    TraceLog(LOG_INFO, "No Object along the direction: Moving object Success");
+                    LOG_INFO("No Object along the direction: Moving object Success");
                     changePosition(xPosition - 1, yPosition);
                     return true;
                 }
-                TraceLog(LOG_ERROR, "Not Returned");
+                LOG_ERROR("Not Returned");
                 break;
             case moveDirection::DOWN:
                 if(gameMapData.getTile(xPosition + 1, yPosition) != nullptr)
                 {
                     if(gameMapData.getTile(xPosition + 1, yPosition)->moveObject(direction, power-1))
                     {
-                        TraceLog(LOG_INFO, "Moving object Success");
+                        LOG_INFO("Moving object Success");
                         changePosition(xPosition + 1, yPosition);
                         return true;
                     }
                     else
                     {
-                        TraceLog(LOG_ERROR, "Moving object Failed");
+                        LOG_ERROR("Moving object Failed");
                         return false;
                     }
                 }
                 else
                 {
-                    TraceLog(LOG_INFO, "No Object along the direction: Moving object Success");
+                    LOG_INFO("No Object along the direction: Moving object Success");
                     changePosition(xPosition + 1, yPosition);
                     return true;
                 }
-                TraceLog(LOG_ERROR, "Not Returned");
+                LOG_ERROR("Not Returned");
                 break;
             case moveDirection::LEFT:
                 if(gameMapData.getTile(xPosition, yPosition - 1) != nullptr)
                 {
                     if(gameMapData.getTile(xPosition, yPosition - 1)->moveObject(direction, power-1))
                     {
-                        TraceLog(LOG_INFO, "Moving object Success");
+                        LOG_INFO("Moving object Success");
                         changePosition(xPosition, yPosition - 1);
                         return true;
                     }
                     else
                     {
-                        TraceLog(LOG_ERROR, "Moving object Failed");
+                        LOG_ERROR("Moving object Failed");
                         return false;
                     }
                 }
                 else
                 {
-                    TraceLog(LOG_INFO, "No Object along the direction: Moving object Success");
+                    LOG_INFO("No Object along the direction: Moving object Success");
                     changePosition(xPosition, yPosition - 1);
                     return true;
                 }
-                TraceLog(LOG_ERROR, "Not Returned");
+                LOG_ERROR("Not Returned");
                 break;
             case moveDirection::RIGHT:
                 if(gameMapData.getTile(xPosition, yPosition + 1) != nullptr)
                 {
                     if(gameMapData.getTile(xPosition, yPosition + 1)->moveObject(direction, power-1))
                     {
-                        TraceLog(LOG_INFO, "Moving object Success");
+                        LOG_INFO("Moving object Success");
                         changePosition(xPosition, yPosition + 1);
                         return true;
                     }
                     else
                     {
-                        TraceLog(LOG_ERROR, "Moving object Failed");
+                        LOG_ERROR("Moving object Failed");
                         return false;
                     }
                 }
                 else
                 {
-                    TraceLog(LOG_INFO, "No Object along the direction: Moving object Success");
+                    LOG_INFO("No Object along the direction: Moving object Success");
                     changePosition(xPosition, yPosition + 1);
                     return true;
                 }
-                TraceLog(LOG_ERROR, "Not Returned");
+                LOG_ERROR("Not Returned");
                 break;
         }            
     }

@@ -16,7 +16,6 @@ GameEngine::~GameEngine()
 
 void GameEngine::Draw()
 {
-    std::cout<<"Draw"<<std::endl;
     gameMapData.drawMap(); // Use the member variable gameMapData
 }
 
@@ -25,18 +24,22 @@ void GameEngine::HandleInput()
     int keyPressed = GetKeyPressed();
     if(keyPressed == KEY_UP)
     {
+        LOG_INFO("KEY_UP");
         player.handleInput(moveDirection::UP);
     }
     else if(keyPressed == KEY_DOWN)
     {
+        LOG_INFO("KEY_DOWN");
         player.handleInput(moveDirection::DOWN);
     }
     else if(keyPressed == KEY_LEFT)
     {
+        LOG_INFO("KEY_LEFT");
         player.handleInput(moveDirection::LEFT);
     }
     else if(keyPressed == KEY_RIGHT)
     {
+        LOG_INFO("KEY_RIGHT");
         player.handleInput(moveDirection::RIGHT);
     }
 }
@@ -46,7 +49,7 @@ void GameEngine::Update()
     gravityTimer += GetFrameTime();
     if(gravityTimer >= GRAVITY_INTERVAL)
     {
-        TraceLog(LOG_INFO, "Applying gravity");
+        LOG_INFO("Applying Gravity");
         applyGravity();
         gravityTimer = 0;
     }

@@ -3,6 +3,7 @@
 #include <GameMap.h>
 #include <Player.h>
 #include "GameEngineUtils.h"
+#include "Logger.h"
 
 class GameEngine:public GameState
 {

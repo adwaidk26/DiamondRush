@@ -4,23 +4,30 @@
 #include <StateManager.h>
 
 
-main()
+int main()
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Diamond Rush");
     SetTargetFPS(60);
-    GameState* CurrentState = new MainMenu();
+    
     StateManager* stateManager = StateManager::getStateInstance();
-    StateManager::getStateInstance()->getCurrentStateHandler(&CurrentState);
+    stateManager->RequestStateChange(MENU);
+
     while(!WindowShouldClose())
     {
-        CurrentState->HandleInput();
-        CurrentState->Update();
+        // First, process any pending state change.
+        // This ensures the new state is active before we operate on it.
+        stateManager->ProcessStateChange();
+
+        // Delegate all frame logic to the state manager
+        stateManager->HandleInput();
+        stateManager->Update();
+
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        CurrentState->Draw();
+        stateManager->Draw();
         EndDrawing();
-        stateManager->ProcessStateChange();
     }
+
     CloseWindow();
     return 0;
 }
