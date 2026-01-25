@@ -1,7 +1,5 @@
 #include "StateManager.h"
-#include "MapEditor.h"
-#include "GameEngine.h"
-#include "MainMenu.h"
+#include "StateFactory.h"
 #include <iostream>
 
 StateManager* StateManager::getStateInstance() {
@@ -10,32 +8,14 @@ StateManager* StateManager::getStateInstance() {
 }
 
 StateManager::~StateManager() {
-    delete currentState;
+    // No need to delete currentState, std::unique_ptr handles it.
 }
 
 void StateManager::ProcessStateChange()
 {
     if(pendingStateID != STATE_NONE)
     {
-        delete currentState; // Delete the old state, if any.
-        
-        switch (pendingStateID)
-        {  
-        case MENU:
-            currentState = new MainMenu();
-            break;
-        
-        case GAME:
-            currentState = new GameEngine();
-            break;
-
-        // case MAP_EDITOR:
-        //     *currentGameStateHandler = new MapEditor();
-        //     break;
-        default:
-            currentState = nullptr;
-            break;
-        }
+        currentState = StateFactory::CreateState(pendingStateID);
         currentGameStateID = pendingStateID;
         pendingStateID = STATE_NONE;
     }
