@@ -16,7 +16,7 @@ void StateManager::ProcessStateChange()
     if(pendingStateID != STATE_NONE)
     {
         currentState = StateFactory::CreateState(pendingStateID);
-        currentGameStateID = pendingStateID;
+        currentAppStateID = pendingStateID;
         pendingStateID = STATE_NONE;
     }
 }
@@ -39,12 +39,12 @@ void StateManager::Draw() {
     }
 }
 
-GameStateIDs StateManager::getCurrentStateID()
+AppStateIDs StateManager::getCurrentStateID()
 {
-    return currentGameStateID;
+    return currentAppStateID;
 }
 
-void StateManager::RequestStateChange(GameStateIDs newState) 
+void StateManager::RequestStateChange(AppStateIDs newState) 
 {
     pendingStateID = newState;
 }

@@ -1,11 +1,11 @@
 #pragma once 
-#include "GameState.h"
+#include "AppState.h"
 #include <GameMap.h>
 #include <Player.h>
 #include "GameEngineUtils.h"
 #include "Logger.h"
 
-class GameEngine:public GameState
+class GameEngine:public AppState
 {
 public:
     GameEngine();
@@ -13,10 +13,9 @@ public:
     void Draw() override;
     void HandleInput() override;
     void Update() override;
-    void updateGravity();
-    void applyGravity();
 
 private:
+    void applyGravity();
     gameMap& gameMapData;
     playerObject player;
     float gravityTimer = 0.0f;

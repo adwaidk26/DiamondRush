@@ -1,9 +1,9 @@
 #pragma once
 
-#include "GameState.h"
+#include "AppState.h"
 #include <memory>
 
 class StateFactory {
 public:
-    static std::unique_ptr<GameState> CreateState(GameStateIDs stateID);
+    static std::unique_ptr<AppState> CreateState(AppStateIDs stateID);
 };

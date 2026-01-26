@@ -1,6 +1,7 @@
 #include "MainMenu.h"
 #include "StateManager.h"
 #include <iostream>
+#include "Logger.h"
 
 MainMenu::MainMenu()
 {}
@@ -17,11 +18,15 @@ void MainMenu::Draw()
 
 void MainMenu::HandleInput()
 {
-    std::cout<<"Handle Input"<<std::endl;
     if (IsKeyPressed(KEY_SPACE))
     {
-        std::cout<<"Space Pressed"<<std::endl;
+        LOG_INFO("Key Space Pressed");
         StateManager::getStateInstance()->RequestStateChange(GAME);
+    }
+    else if(IsKeyPressed(KEY_E))
+    {
+        LOG_INFO("Key E Pressed");
+        StateManager::getStateInstance()->RequestStateChange(MAP_EDITOR);
     }
 }
 

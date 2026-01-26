@@ -1,6 +1,6 @@
 #include "GameEngine.h"
 #include <iostream>
-
+#include "StateManager.h"
 
 GameEngine::GameEngine()
     : gameMapData(gameMap::getInstance()),
@@ -41,6 +41,11 @@ void GameEngine::HandleInput()
     {
         LOG_INFO("KEY_RIGHT");
         player.handleInput(moveDirection::RIGHT);
+    }
+    else if(keyPressed == KEY_ESCAPE)
+    {
+        LOG_INFO("KEY_ESCAPE");
+        StateManager::getStateInstance()->RequestStateChange(MENU);
     }
 }
 

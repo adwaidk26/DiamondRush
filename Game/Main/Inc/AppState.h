@@ -1,6 +1,6 @@
 #pragma once
 
-enum GameStateIDs
+enum AppStateIDs
 {
     STATE_NONE = 0,
     MENU = 1,
@@ -8,11 +8,11 @@ enum GameStateIDs
     MAP_EDITOR = 3
 };
 
-class GameState
+class AppState
 {
     public:
-    GameState() {};
-    virtual ~GameState() {};
+    AppState() {};
+    virtual ~AppState() {};
     virtual void Draw() = 0;
     virtual void HandleInput() = 0;
     virtual void Update() = 0;

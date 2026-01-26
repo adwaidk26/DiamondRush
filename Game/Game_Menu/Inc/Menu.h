@@ -1,8 +1,8 @@
 #pragma once
 #include "raylib.h"
-#include "GameState.h"
+#include "AppState.h"
 
-class GameMenu : public GameState
+class GameMenu : public AppState
 {
 public:
     GameMenu();

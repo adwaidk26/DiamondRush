@@ -1,6 +1,6 @@
 #pragma once
 #include "Utils.h"
-#include "GameState.h"
+#include "AppState.h"
 #include <memory>
 
 class StateManager
@@ -9,17 +9,17 @@ class StateManager
     ~StateManager();
     static StateManager* getStateInstance();
     
-    void RequestStateChange(GameStateIDs newState);
+    void RequestStateChange(AppStateIDs newState);
     void ProcessStateChange();
 
     void HandleInput();
     void Update();
     void Draw();
 
-    GameStateIDs getCurrentStateID();
+    AppStateIDs getCurrentStateID();
 
     private:
-        std::unique_ptr<GameState> currentState = nullptr;
-        GameStateIDs currentGameStateID = STATE_NONE;
-        GameStateIDs pendingStateID = STATE_NONE;
+        std::unique_ptr<AppState> currentState = nullptr;
+        AppStateIDs currentAppStateID = STATE_NONE;
+        AppStateIDs pendingStateID = STATE_NONE;
 };

@@ -19,7 +19,7 @@ enum moveDirection
     RIGHT
 };
 
-enum gameState
+enum GameStateID
 {
     START,
     PLAYING,
