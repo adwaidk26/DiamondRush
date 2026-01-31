@@ -1,6 +1,7 @@
 #include <Player.h>
+#include <GameMap.h>
 
-playerObject::playerObject(int xPos, int yPos)
+playerObject::playerObject(int xPos, int yPos, gameMap* map) : gameObject(xPos, yPos, map)
 {
     isBreakable = false;
     isMovable = true;
@@ -13,8 +14,7 @@ playerObject::playerObject(int xPos, int yPos)
     playerPower = 3;
     playerScore = 0;
     gravityApplicable = 0;
-    gameMap& gameMapData = gameMap::getInstance();
-    gameMapData.setTile(xPosition, yPosition, this);
+    this->gameMapRef->setTile(xPosition, yPosition, this);
 }
 
 playerObject::~playerObject()
@@ -28,17 +28,16 @@ void playerObject::draw()
 
 bool playerObject::collectDiamond(moveDirection direction)
 {
-    gameMap& gameMapData = gameMap::getInstance();
     int xOffset = moveOffsets[direction].first;
     int yOffset = moveOffsets[direction].second;
-    if (gameMapData.getTile(xPosition + xOffset, yPosition + yOffset) != nullptr)
+    if (gameMapRef->getTile(xPosition + xOffset, yPosition + yOffset) != nullptr)
     {
-        if (gameMapData.getTile(xPosition + xOffset, yPosition + yOffset)->isItemCollectable())
+        if (gameMapRef->getTile(xPosition + xOffset, yPosition + yOffset)->isItemCollectable())
         {
-            playerScore += gameMapData.getTile(xPosition + xOffset, yPosition + yOffset)->getScore();
-            delete gameMapData.getTile(xPosition + xOffset, yPosition + yOffset);
-            gameMapData.setTile(xPosition + xOffset, yPosition + yOffset, this);
-            gameMapData.setTile(xPosition, yPosition, nullptr);
+            playerScore += gameMapRef->getTile(xPosition + xOffset, yPosition + yOffset)->getScore();
+            delete gameMapRef->getTile(xPosition + xOffset, yPosition + yOffset);
+            gameMapRef->setTile(xPosition + xOffset, yPosition + yOffset, this);
+            gameMapRef->setTile(xPosition, yPosition, nullptr);
             changePosition(xPosition + xOffset, yPosition + yOffset);
             LOG_INFO("Player collected diamond: %d", playerScore);
             return true;

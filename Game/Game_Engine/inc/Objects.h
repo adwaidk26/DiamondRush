@@ -1,12 +1,11 @@
 #pragma once
 #include<Object.h>
 #include "GameEngineUtils.h"
-#include<GameMap.h>
 
 class boulder : public gameObject
 {
 public:
-    boulder(int xPos, int yPos);
+    boulder(int xPos, int yPos, gameMap* map);
     ~boulder() override;
     void draw() override;
     void updateOnMap();
@@ -19,7 +18,7 @@ private:
 class diamond : public gameObject
 {
 public:
-    diamond(int xPos, int yPos);
+    diamond(int xPos, int yPos, gameMap* map);
     ~diamond() override;
     void draw() override;
     void updateOnMap();
@@ -29,7 +28,7 @@ public:
 class block : public gameObject
 {
 public:
-    block(int xPos, int yPos);
+    block(int xPos, int yPos, gameMap* map);
     ~block() override;
     void draw() override;
 };
@@ -37,7 +36,7 @@ public:
 class bush : public gameObject
 {
 public:
-    bush(int xPos, int yPos);
+    bush(int xPos, int yPos, gameMap* map);
     ~bush() override;
     void draw() override;
 };

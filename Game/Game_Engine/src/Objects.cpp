@@ -4,14 +4,12 @@
 // ############################################################################################################
 // gameObject boulder
 // ############################################################################################################
-boulder::boulder(int xPos, int yPos)
+boulder::boulder(int xPos, int yPos, gameMap* map) : gameObject(xPos, yPos, map)
 {
     isBreakable = false;
     isMovable = true;
     isCollectable = false;
     isSquare = false;
-    xPosition = xPos;
-    yPosition = yPos;
     xPrev = xPosition;
     yPrev = yPosition;
     gravityApplicable = 1;
@@ -19,8 +17,7 @@ boulder::boulder(int xPos, int yPos)
 
 boulder::~boulder()
 {
-    gameMap& gameMapData = gameMap::getInstance();
-    gameMapData.setTile(xPosition, yPosition, nullptr);
+    gameMapRef->setTile(xPosition, yPosition, nullptr);
 }
 
 void boulder::draw()
@@ -39,15 +36,13 @@ void boulder::updateOnMap()
 // gameObject Diamond
 // ############################################################################################################
 
-diamond::diamond(int xPos, int yPos)
+diamond::diamond(int xPos, int yPos, gameMap* map) : gameObject(xPos, yPos, map)
 {
     isBreakable = false;
     isMovable = false;
     isCollectable = true;
     isSquare = false;
     score = 10;
-    xPosition = xPos;
-    yPosition = yPos;
     xPrev = xPosition;
     yPrev = yPosition;
     gravityApplicable = 1;
@@ -55,8 +50,7 @@ diamond::diamond(int xPos, int yPos)
 
 diamond::~diamond()
 {
-    gameMap& gameMapData = gameMap::getInstance();
-    gameMapData.setTile(xPosition, yPosition, nullptr);
+    gameMapRef->setTile(xPosition, yPosition, nullptr);
 }
 
 void diamond::draw()
@@ -73,14 +67,12 @@ void diamond::updateOnMap()
 // gameObject Block
 // ############################################################################################################
 
-block::block(int xPos, int yPos)
+block::block(int xPos, int yPos, gameMap* map) : gameObject(xPos, yPos, map)
 {
     isBreakable = false;
     isCollectable = false;
     isMovable = false;
     isSquare = true;
-    xPosition = xPos;
-    yPosition = yPos;
     gravityApplicable = 0;
 }
 
@@ -98,14 +90,12 @@ void block::draw()
 // gameObject Bush
 // ############################################################################################################
 
-bush::bush(int xPos, int yPos)
+bush::bush(int xPos, int yPos, gameMap* map) : gameObject(xPos, yPos, map)
 {
     isBreakable = true;
     isCollectable = true;
     isMovable = false;
     isSquare = true;
-    xPosition = xPos;
-    yPosition = yPos;
     gravityApplicable = 0;
 }
 

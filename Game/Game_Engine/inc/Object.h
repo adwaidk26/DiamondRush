@@ -3,10 +3,12 @@
 #include "GameEngineUtils.h"
 #include "Logger.h"
 
+class gameMap;
+
 class gameObject
 {
 public:
-    gameObject();
+    gameObject(int x, int y, gameMap* map);
     virtual ~gameObject(); 
     virtual void draw(); 
     void updateOnMap(); 
@@ -28,7 +30,5 @@ protected:
     int xPrev;
     int yPrev;
     int gravityApplicable;
+    gameMap* gameMapRef;
 };
-
-
-

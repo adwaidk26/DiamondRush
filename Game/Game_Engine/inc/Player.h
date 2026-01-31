@@ -1,12 +1,11 @@
 #pragma once
 #include<Object.h>
 #include "GameEngineUtils.h"
-#include<GameMap.h>
 
 class playerObject : public gameObject
 {
 public:
-    playerObject(int xPos, int yPos);
+    playerObject(int xPos, int yPos, gameMap* map);
     ~playerObject() override;
     void draw() override;
     void updateOnMap();

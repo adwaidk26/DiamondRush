@@ -2,14 +2,13 @@
 #include<GameMap.h>
 #include <sstream>
 
-gameObject::gameObject()
+gameObject::gameObject(int x, int y, gameMap* map)
+    : xPosition(x), yPosition(y), gameMapRef(map)
 {
     isBreakable = false;
     isMovable = false;
     isCollectable = false;
     isSquare = false;
-    xPosition = 0;
-    yPosition = 0;
 }
 
 gameObject::~gameObject()
@@ -22,8 +21,8 @@ void gameObject::changePosition(int xPos, int yPos)
     yPrev = yPosition;
     xPosition = xPos;
     yPosition = yPos;
-    gameMap::getInstance().setTile(xPosition,yPosition, this);
-    gameMap::getInstance().setTile(xPrev,yPrev, nullptr); 
+    gameMapRef->setTile(xPosition,yPosition, this);
+    gameMapRef->setTile(xPrev,yPrev, nullptr); 
 }
 void gameObject::draw()
 {
@@ -43,13 +42,12 @@ bool gameObject::moveObject(moveDirection direction, int power)
     if(isMovable)
     {
         //LOG_INFO("Direction: %d", direction); fix required
-        gameMap& gameMapData = gameMap::getInstance();
         switch (direction)
         {
             case moveDirection::UP:
-                if(gameMapData.getTile(xPosition - 1, yPosition) != nullptr)
+                if(gameMapRef->getTile(xPosition - 1, yPosition) != nullptr)
                 {
-                    if(gameMapData.getTile(xPosition - 1, yPosition)->moveObject(direction, power-1))
+                    if(gameMapRef->getTile(xPosition - 1, yPosition)->moveObject(direction, power-1))
                     {
                         LOG_INFO("Moving object Success");
                         changePosition(xPosition - 1, yPosition);
@@ -70,9 +68,9 @@ bool gameObject::moveObject(moveDirection direction, int power)
                 LOG_ERROR("Not Returned");
                 break;
             case moveDirection::DOWN:
-                if(gameMapData.getTile(xPosition + 1, yPosition) != nullptr)
+                if(gameMapRef->getTile(xPosition + 1, yPosition) != nullptr)
                 {
-                    if(gameMapData.getTile(xPosition + 1, yPosition)->moveObject(direction, power-1))
+                    if(gameMapRef->getTile(xPosition + 1, yPosition)->moveObject(direction, power-1))
                     {
                         LOG_INFO("Moving object Success");
                         changePosition(xPosition + 1, yPosition);
@@ -93,9 +91,9 @@ bool gameObject::moveObject(moveDirection direction, int power)
                 LOG_ERROR("Not Returned");
                 break;
             case moveDirection::LEFT:
-                if(gameMapData.getTile(xPosition, yPosition - 1) != nullptr)
+                if(gameMapRef->getTile(xPosition, yPosition - 1) != nullptr)
                 {
-                    if(gameMapData.getTile(xPosition, yPosition - 1)->moveObject(direction, power-1))
+                    if(gameMapRef->getTile(xPosition, yPosition - 1)->moveObject(direction, power-1))
                     {
                         LOG_INFO("Moving object Success");
                         changePosition(xPosition, yPosition - 1);
@@ -116,9 +114,9 @@ bool gameObject::moveObject(moveDirection direction, int power)
                 LOG_ERROR("Not Returned");
                 break;
             case moveDirection::RIGHT:
-                if(gameMapData.getTile(xPosition, yPosition + 1) != nullptr)
+                if(gameMapRef->getTile(xPosition, yPosition + 1) != nullptr)
                 {
-                    if(gameMapData.getTile(xPosition, yPosition + 1)->moveObject(direction, power-1))
+                    if(gameMapRef->getTile(xPosition, yPosition + 1)->moveObject(direction, power-1))
                     {
                         LOG_INFO("Moving object Success");
                         changePosition(xPosition, yPosition + 1);
@@ -142,6 +140,3 @@ bool gameObject::moveObject(moveDirection direction, int power)
     }
     return false;
 }
-
-
-

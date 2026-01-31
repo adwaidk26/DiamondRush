@@ -3,8 +3,8 @@
 #include "StateManager.h"
 
 GameEngine::GameEngine()
-    : gameMapData(gameMap::getInstance()),
-    player(3,3) // Initialize gameMapData using initializer list
+    : gameMapData(std::make_unique<gameMap>()),
+    player(3,3, gameMapData.get()) // Initialize gameMapData using initializer list
 {
     gravityTimer = 0.0f;
 }
@@ -16,7 +16,7 @@ GameEngine::~GameEngine()
 
 void GameEngine::Draw()
 {
-    gameMapData.drawMap(); // Use the member variable gameMapData
+    gameMapData->drawMap(); // Use the member variable gameMapData
 }
 
 void GameEngine::HandleInput()
@@ -66,10 +66,10 @@ void GameEngine::applyGravity()
     {
         for(int j=0 ; j<GRID_WIDTH; j++)
         {
-            if(gameMapData.getTile(i,j) != nullptr && gameMapData.getTile(i,j)->getIsGravityApplicable() && gameMapData.getTile(i+1,j) == nullptr)
+            if(gameMapData->getTile(i,j) != nullptr && gameMapData->getTile(i,j)->getIsGravityApplicable() && gameMapData->getTile(i+1,j) == nullptr)
             {
     
-                gameMapData.getTile(i,j)->changePosition(i+1,j);
+                gameMapData->getTile(i,j)->changePosition(i+1,j);
             }
         }
     }

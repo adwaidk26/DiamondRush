@@ -1,5 +1,6 @@
 #pragma once 
 #include "AppState.h"
+#include <memory>
 #include <GameMap.h>
 #include <Player.h>
 #include "GameEngineUtils.h"
@@ -16,7 +17,7 @@ public:
 
 private:
     void applyGravity();
-    gameMap& gameMapData;
+    std::unique_ptr<gameMap> gameMapData;
     playerObject player;
     float gravityTimer = 0.0f;
 };
