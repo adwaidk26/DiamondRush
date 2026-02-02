@@ -39,104 +39,46 @@ bool gameObject::moveObject(moveDirection direction, int power)
         LOG_INFO("Power is less than or equal to 0");
         return false;
     }
-    if(isMovable)
+    if (!isMovable)
     {
-        //LOG_INFO("Direction: %d", direction); fix required
-        switch (direction)
-        {
-            case moveDirection::UP:
-                if(gameMapRef->getTile(xPosition - 1, yPosition) != nullptr)
-                {
-                    if(gameMapRef->getTile(xPosition - 1, yPosition)->moveObject(direction, power-1))
-                    {
-                        LOG_INFO("Moving object Success");
-                        changePosition(xPosition - 1, yPosition);
-                        return true;
-                    }
-                    else
-                    {
-                        LOG_ERROR("Moving object Failed");
-                        return false;
-                    }
-                }
-                else
-                {
-                    LOG_INFO("No Object along the direction: Moving object Success");
-                    changePosition(xPosition - 1, yPosition);
-                    return true;
-                }
-                LOG_ERROR("Not Returned");
-                break;
-            case moveDirection::DOWN:
-                if(gameMapRef->getTile(xPosition + 1, yPosition) != nullptr)
-                {
-                    if(gameMapRef->getTile(xPosition + 1, yPosition)->moveObject(direction, power-1))
-                    {
-                        LOG_INFO("Moving object Success");
-                        changePosition(xPosition + 1, yPosition);
-                        return true;
-                    }
-                    else
-                    {
-                        LOG_ERROR("Moving object Failed");
-                        return false;
-                    }
-                }
-                else
-                {
-                    LOG_INFO("No Object along the direction: Moving object Success");
-                    changePosition(xPosition + 1, yPosition);
-                    return true;
-                }
-                LOG_ERROR("Not Returned");
-                break;
-            case moveDirection::LEFT:
-                if(gameMapRef->getTile(xPosition, yPosition - 1) != nullptr)
-                {
-                    if(gameMapRef->getTile(xPosition, yPosition - 1)->moveObject(direction, power-1))
-                    {
-                        LOG_INFO("Moving object Success");
-                        changePosition(xPosition, yPosition - 1);
-                        return true;
-                    }
-                    else
-                    {
-                        LOG_ERROR("Moving object Failed");
-                        return false;
-                    }
-                }
-                else
-                {
-                    LOG_INFO("No Object along the direction: Moving object Success");
-                    changePosition(xPosition, yPosition - 1);
-                    return true;
-                }
-                LOG_ERROR("Not Returned");
-                break;
-            case moveDirection::RIGHT:
-                if(gameMapRef->getTile(xPosition, yPosition + 1) != nullptr)
-                {
-                    if(gameMapRef->getTile(xPosition, yPosition + 1)->moveObject(direction, power-1))
-                    {
-                        LOG_INFO("Moving object Success");
-                        changePosition(xPosition, yPosition + 1);
-                        return true;
-                    }
-                    else
-                    {
-                        LOG_ERROR("Moving object Failed");
-                        return false;
-                    }
-                }
-                else
-                {
-                    LOG_INFO("No Object along the direction: Moving object Success");
-                    changePosition(xPosition, yPosition + 1);
-                    return true;
-                }
-                LOG_ERROR("Not Returned");
-                break;
-        }            
+        return false;
     }
+
+    int dx = 0;
+    int dy = 0;
+
+    switch (direction)
+    {
+        case moveDirection::UP:    dx = -1; break;
+        case moveDirection::DOWN:  dx = 1;  break;
+        case moveDirection::LEFT:  dy = -1; break;
+        case moveDirection::RIGHT: dy = 1;  break;
+    }
+
+    int targetX = xPosition + dx;
+    int targetY = yPosition + dy;
+    gameObject* targetObject = gameMapRef->getTile(targetX, targetY);
+
+    if (targetObject != nullptr)
+    {
+        if (targetObject->moveObject(direction, power - 1))
+        {
+            LOG_INFO("Moving object Success");
+            changePosition(targetX, targetY);
+            return true;
+        }
+        else
+        {
+            LOG_ERROR("Moving object Failed");
+            return false;
+        }
+    }
+    else
+    {
+        LOG_INFO("No Object along the direction: Moving object Success");
+        changePosition(targetX, targetY);
+        return true;
+    }
+
     return false;
 }
