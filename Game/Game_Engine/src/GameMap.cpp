@@ -87,3 +87,14 @@ gameObject* gameMap::getTile(int x, int y)
     //TraceLog(LOG_INFO, "getTile: x: %d, y: %d", x, y);
     return gameGrid[x][y];
 }
+
+void gameMap::moveTile(int fromX, int fromY, int toX, int toY)
+{
+    gameObject* obj = getTile(fromX, fromY);
+    if(obj)
+    {
+        setTile(toX, toY, obj);
+        setTile(fromX, fromY, nullptr);
+        obj->changePosition(toX, toY);
+    }
+}

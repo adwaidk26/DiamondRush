@@ -30,15 +30,18 @@ bool playerObject::collectDiamond(moveDirection direction)
 {
     int xOffset = moveOffsets[direction].first;
     int yOffset = moveOffsets[direction].second;
-    if (gameMapRef->getTile(xPosition + xOffset, yPosition + yOffset) != nullptr)
+    int targetX = xPosition + xOffset;
+    int targetY = yPosition + yOffset;
+    gameObject* targetObj = gameMapRef->getTile(targetX, targetY);
+
+    if (targetObj != nullptr)
     {
-        if (gameMapRef->getTile(xPosition + xOffset, yPosition + yOffset)->isItemCollectable())
+        if (targetObj->isItemCollectable())
         {
-            playerScore += gameMapRef->getTile(xPosition + xOffset, yPosition + yOffset)->getScore();
-            delete gameMapRef->getTile(xPosition + xOffset, yPosition + yOffset);
-            gameMapRef->setTile(xPosition + xOffset, yPosition + yOffset, this);
-            gameMapRef->setTile(xPosition, yPosition, nullptr);
-            changePosition(xPosition + xOffset, yPosition + yOffset);
+            playerScore += targetObj->getScore();
+            delete targetObj;
+            gameMapRef->setTile(targetX, targetY, nullptr); // Clear the slot so we can move into it
+            gameMapRef->moveTile(xPosition, yPosition, targetX, targetY);
             LOG_INFO("Player collected diamond: %d", playerScore);
             return true;
         }

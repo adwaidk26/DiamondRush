@@ -21,8 +21,6 @@ void gameObject::changePosition(int xPos, int yPos)
     yPrev = yPosition;
     xPosition = xPos;
     yPosition = yPos;
-    gameMapRef->setTile(xPosition,yPosition, this);
-    gameMapRef->setTile(xPrev,yPrev, nullptr); 
 }
 void gameObject::draw()
 {
@@ -30,6 +28,7 @@ void gameObject::draw()
 
 void gameObject::updateOnMap()
 {
+    
 }
 
 bool gameObject::moveObject(moveDirection direction, int power)
@@ -64,7 +63,7 @@ bool gameObject::moveObject(moveDirection direction, int power)
         if (targetObject->moveObject(direction, power - 1))
         {
             LOG_INFO("Moving object Success");
-            changePosition(targetX, targetY);
+            gameMapRef->moveTile(xPosition, yPosition, targetX, targetY);
             return true;
         }
         else
@@ -76,7 +75,7 @@ bool gameObject::moveObject(moveDirection direction, int power)
     else
     {
         LOG_INFO("No Object along the direction: Moving object Success");
-        changePosition(targetX, targetY);
+        gameMapRef->moveTile(xPosition, yPosition, targetX, targetY);
         return true;
     }
 

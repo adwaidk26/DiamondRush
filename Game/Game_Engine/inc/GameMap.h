@@ -16,6 +16,7 @@ public:
     void addColumn();
     void setTile(int x, int y, gameObject* object);
     gameObject* getTile(int x, int y);
+    void moveTile(int fromX, int fromY, int toX, int toY);
     
 private:
     std::vector<std::vector<gameObject*>> gameGrid;

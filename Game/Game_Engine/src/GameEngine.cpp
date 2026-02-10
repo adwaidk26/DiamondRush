@@ -1,5 +1,4 @@
 #include "GameEngine.h"
-#include <iostream>
 #include "StateManager.h"
 
 GameEngine::GameEngine()
@@ -56,7 +55,7 @@ void GameEngine::Update()
     {
         LOG_INFO("Applying Gravity");
         applyGravity();
-        gravityTimer = 0;
+        gravityTimer -= GRAVITY_INTERVAL;
     }
 }
 
@@ -68,8 +67,7 @@ void GameEngine::applyGravity()
         {
             if(gameMapData->getTile(i,j) != nullptr && gameMapData->getTile(i,j)->getIsGravityApplicable() && gameMapData->getTile(i+1,j) == nullptr)
             {
-    
-                gameMapData->getTile(i,j)->changePosition(i+1,j);
+                gameMapData->moveTile(i, j, i+1, j);
             }
         }
     }

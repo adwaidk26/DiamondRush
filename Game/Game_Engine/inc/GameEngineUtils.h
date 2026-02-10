@@ -9,6 +9,7 @@ constexpr int CENTER_OFFSET = 50;
 constexpr int TILE_SIZE = 100;
 constexpr int RADIUS_SIZE = 50;
 constexpr float GRAVITY_INTERVAL = 0.5f;
+constexpr float GAME_INTERVAL = 0.5f;
 
 
 enum moveDirection
